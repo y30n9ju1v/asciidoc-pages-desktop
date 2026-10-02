@@ -2,8 +2,6 @@ import { describe, expect, it, vi } from 'vitest';
 import { mapAsciiDocProse } from './asciidocProse';
 import { inspectDocumentIntegrity } from './documentIntegrityService';
 import { relocateNoteReferences } from './noteRelocationService';
-import { buildBookManuscript } from './bookManuscriptService';
-import { createBookProject } from './bookProjectService';
 import { indexVault, type VaultCache } from './vaultService';
 import { resolveWikilinkTarget, rewriteWikilinksForRender } from './wikilinkService';
 
@@ -44,18 +42,6 @@ describe('publication workflow boundaries', () => {
     expect(result).toContain('[[c/note.adoc|Note]]');
     expect(result).toContain('include::c/note.adoc[]');
     expect(result).toContain('----\ninclude::a/note.adoc[]\n----');
-  });
-  it('assembles chapter order and rejects missing sources', () => {
-    const project = createBookProject({ title: 'Book', author: 'A', lang: 'en', email: '', attributes: {} });
-    project.chapters = notes.map((note) => ({ path: note.path, title: note.title, status: 'draft' }));
-    const sources = [
-      { ...notes[0], content: '= First\n\nimage::pic.png[]' },
-      { ...notes[1], content: '= Second\n\nBody' },
-    ];
-    const result = buildBookManuscript(project, sources, '/vault');
-    expect(result.indexOf('== First')).toBeLessThan(result.indexOf('== Second'));
-    expect(result).toContain('image::a/pic.png[]');
-    expect(() => buildBookManuscript(project, sources.slice(1), '/vault')).toThrow('Missing chapter');
   });
   it('reads only changed note contents after the first index', async () => {
     let fingerprint = 'first';

@@ -4,6 +4,7 @@ import {
   bookProjectPath,
   createBookProject,
   parseBookProject,
+  selectedBookNotes,
   serializeBookProject,
   withPublicationTypographyOverride,
 } from './bookProjectService';
@@ -140,5 +141,15 @@ describe('bookProjectService', () => {
 
   it('returns a stable empty collection when there is no open book project', () => {
     expect(bibliographyOf(null)).toBe(bibliographyOf(null));
+  });
+
+  it('selects chapter notes in chapter order and skips missing files', () => {
+    const note = (name: string) => ({ path: `/vault/${name}.adoc`, name, title: name, content: '' });
+    const chapter = (name: string) => ({ path: `/vault/${name}.adoc`, title: name, status: 'draft' as const });
+    const notes = [note('one'), note('two')];
+    expect(selectedBookNotes([chapter('two'), chapter('missing'), chapter('one')], notes)).toEqual([
+      notes[1],
+      notes[0],
+    ]);
   });
 });

@@ -29,8 +29,7 @@ function hasKey(entries: BibliographyEntry[], key: string): boolean {
   return entries.some((entry) => entry.key === key);
 }
 
-/** Same add/remove/move shape as bookProjectWorkspaceService.ts's chapter
- * helpers - pure functions over the list, no I/O. */
+/** Pure functions over the entry list, no I/O. */
 export function addBibliographyEntry(entries: BibliographyEntry[], key: string): BibliographyEntry[] {
   return hasKey(entries, key) ? entries : [...entries, createBibliographyEntry(key)];
 }

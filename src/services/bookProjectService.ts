@@ -1,6 +1,7 @@
 import type { AsciidocDocMeta } from './asciidocService';
 import type { ChapterStatus } from './chapterStatusService';
 import type { BibliographyEntry } from './bibliographyService';
+import type { VaultNote } from './vaultService';
 import { PUBLICATION_TYPOGRAPHY_RANGES, type PublicationTypography } from './publicationTypographyService';
 import type { PublicationStyleId } from './publicationStyleService';
 import { PAGE_SIZE_LIST, type PageSizeId } from './pageSizeService';
@@ -245,4 +246,13 @@ export function serializeBookProject(project: BookProject): string {
 /** Uses explicit project values, falling back only for a newly created project. */
 export function mergeBookMetadata(saved: BookMetadata | null, documentMeta: AsciidocDocMeta): BookMetadata {
   return saved ?? createBookMetadata(documentMeta);
+}
+
+/** The Vault notes behind the book's chapters, in chapter order; missing files are skipped. */
+export function selectedBookNotes(chapters: BookChapter[], notes: VaultNote[]): VaultNote[] {
+  const notesByPath = new Map(notes.map((note) => [note.path, note]));
+  return chapters.flatMap((chapter) => {
+    const note = notesByPath.get(chapter.path);
+    return note ? [note] : [];
+  });
 }
