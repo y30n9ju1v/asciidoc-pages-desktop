@@ -1,14 +1,12 @@
 import { useMemo, useState } from 'react';
 import { toast, Toaster } from 'sonner';
 import { AppHeader } from './components/Layout/AppHeader';
-import { BookOutlinePanel } from './components/Layout/BookOutlinePanel';
 import { NewBookDialog } from './components/Layout/NewBookDialog';
 import { BibliographyDialog } from './components/Layout/BibliographyDialog';
 import { NoteTemplateDialog } from './components/Layout/NoteTemplateDialog';
 import { RenderingTemplateDialog } from './components/Layout/RenderingTemplateDialog';
 import { DocumentHistoryDialog } from './components/Layout/DocumentHistoryDialog';
 import { WritingToolsDialog } from './components/Layout/WritingToolsDialog';
-import { GraphViewDialog } from './components/Layout/GraphViewDialog';
 import { Workspace } from './components/Layout/Workspace';
 import { useDocument } from './hooks/useDocument';
 import { useAppPreferences } from './hooks/useAppPreferences';
@@ -27,7 +25,6 @@ import { useWorkspaceCommands } from './hooks/useWorkspaceCommands';
 import { findBacklinks } from './services/backlinkService';
 import { findNotesByTag, listAllTags } from './services/tagService';
 import { bibliographyOf, mergeBookMetadata } from './services/bookProjectService';
-import type { BookProject } from './services/bookProjectService';
 import { selectedBookNotes } from './services/bookProjectWorkspaceService';
 import { runPreflight } from './services/preflightService';
 import { lineForPreflightIssue, resolutionForPreflightIssue } from './services/preflightNavigationService';
@@ -185,7 +182,6 @@ export function App() {
   const workspaceMode = useWorkspaceMode();
   const [writingToolsOpen, setWritingToolsOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
-  const [graphOpen, setGraphOpen] = useState(false);
   const {
     sidebarWidth,
     editorPercent,
@@ -306,23 +302,6 @@ export function App() {
       publicationStyle,
     ],
   );
-
-  const saveBookProject = async (project: BookProject) => {
-    await saveProject(project);
-  };
-
-  const assembleBook = async (project: BookProject) => {
-    if (!vaultRoot) throw new Error('Open a Vault first.');
-    if (isDirty) throw new Error('Save the open document before assembling the book.');
-    const { assembleBookFromFiles } = await import('./services/bookManuscriptAdapter');
-    await saveProject(project);
-    const path = await assembleBookFromFiles(project, vaultRoot);
-    await refreshVault();
-    await openFile(path);
-    toast.success('Book assembled in chapter order', {
-      description: 'Review the snapshot, then use Publish. Reassemble after changing source notes.',
-    });
-  };
 
   const extractSelection = async (text: string): Promise<string> => {
     if (!vaultRoot || !currentPath) throw new Error('Open a Vault and save the source note first.');
@@ -445,18 +424,7 @@ export function App() {
 
       <Workspace
         onShowWritingTools={() => setWritingToolsOpen(true)}
-        onShowGraph={() => setGraphOpen(true)}
         showPreview={workspaceMode.mode === 'proof'}
-        bookOutline={
-          <BookOutlinePanel
-            vaultRoot={vaultRoot}
-            project={savedBookProject}
-            notes={notes}
-            onSave={saveBookProject}
-            onAssemble={assembleBook}
-            onOpenFile={(path) => void openFile(path)}
-          />
-        }
         resizeSidebarByKeyboard={resizeSidebarByKeyboard}
         resizeEditorByKeyboard={resizeEditorByKeyboard}
         beforeMutation={() => {
@@ -516,15 +484,6 @@ export function App() {
         onRead={readSnapshot}
         onRestore={restoreDocumentSnapshot}
         available={vaultRoot !== null && currentPath !== null}
-      />
-      <GraphViewDialog
-        open={graphOpen}
-        onOpenChange={setGraphOpen}
-        vaultRoot={vaultRoot}
-        notes={notes}
-        project={savedBookProject}
-        currentPath={currentPath}
-        onOpenDocument={(path) => void openFile(path)}
       />
       <BibliographyDialog
         key={`bibliography:${vaultRoot}:${bibliography.length}:${bibliographyOpen}`}
