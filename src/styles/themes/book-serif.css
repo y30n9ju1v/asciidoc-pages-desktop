@@ -1,0 +1,123 @@
+.asciidoc-preview-container.theme-book-serif {
+  --adoc-bg: #fffdf8;
+  --adoc-card-bg: #f7f3eb;
+  --adoc-text: #302a25;
+  --adoc-muted: #746a5d;
+  --adoc-accent: #6b4534;
+  --adoc-border: #d9d0c3;
+  --adoc-code-bg: #f3efe7;
+  --adoc-quote-border: #9a7c68;
+  max-width: 46rem;
+  margin: 2.5rem auto;
+  padding: clamp(2rem, 7vw, 5.5rem);
+  border: 1px solid #e7dfd4;
+  border-radius: 0.4rem;
+  box-shadow: 0 1rem 3rem rgb(62 48 38 / 0.1);
+  color: var(--adoc-text);
+  font-family: 'Iowan Old Style', 'Noto Serif KR', 'AppleMyungjo', Georgia, serif;
+  font-size: 10.5pt;
+  line-height: 1.7;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.theme-book-serif h1,
+.theme-book-serif h2,
+.theme-book-serif h3 {
+  color: #302a25;
+  font-family: 'Iowan Old Style', 'Noto Serif KR', 'AppleMyungjo', Georgia, serif;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.theme-book-serif h1 {
+  font-size: clamp(2.15rem, 5vw, 3.1rem);
+  font-weight: 650;
+  line-height: 1.22;
+  margin-bottom: 1.4em;
+  padding-bottom: 0.6em;
+  text-align: center;
+}
+
+.theme-book-serif h1::after {
+  background: #9a7c68;
+  content: '';
+  display: block;
+  height: 2px;
+  margin: 0.7em auto 0;
+  width: 2.4rem;
+}
+
+.theme-book-serif h2 {
+  border: 0;
+  font-size: 1.65rem;
+  line-height: 1.35;
+  margin: 2.8em 0 0.85em;
+  padding: 0;
+}
+
+.theme-book-serif h3 {
+  color: #6b4534;
+  font-size: 1.25rem;
+  line-height: 1.45;
+  margin: 2.2em 0 0.65em;
+}
+
+.theme-book-serif p {
+  margin: 0;
+  text-indent: 1.25em;
+}
+
+.theme-book-serif h1 + p,
+.theme-book-serif h2 + p,
+.theme-book-serif h3 + p,
+.theme-book-serif #header + p {
+  text-indent: 0;
+}
+
+.theme-book-serif a {
+  color: #6b4534;
+  text-decoration-color: #c7a88f;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.theme-book-serif code,
+.theme-book-serif .listingblock pre {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+}
+
+.theme-book-serif code {
+  border-radius: 0.25rem;
+  color: #6b4534;
+}
+
+.theme-book-serif .listingblock pre {
+  border-color: #dfd6c9;
+  border-radius: 0.45rem;
+  font-size: 0.86em;
+  line-height: 1.65;
+}
+
+.theme-book-serif .admonitionblock,
+.theme-book-serif #toc {
+  border-radius: 0.45rem;
+}
+
+.theme-book-serif table.tableblock th {
+  background: #eee6db;
+  color: #302a25;
+}
+
+.theme-book-serif blockquote,
+.theme-book-serif .quoteblock {
+  color: #5d5147;
+  font-size: 1.04em;
+}
+
+@media (max-width: 640px) {
+  .asciidoc-preview-container.theme-book-serif {
+    margin: 0;
+    text-align: start;
+  }
+}

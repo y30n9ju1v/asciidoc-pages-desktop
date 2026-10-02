@@ -1,0 +1,62 @@
+== Chapter 3: Code Snippets & Images
+
+This chapter demonstrates advanced code block highlighting, AsciiDoc callout notes, and image asset referencing.
+
+=== Code Callout Annotations
+
+Refer to <<lst-publisher>> for the main e-book compilation entrypoint. The PDF
+edition turns this automatic cross-reference into a numbered listing label;
+the following source callout markers become print-facing `(n)` callouts.
+
+.TypeScript Publisher Implementation
+[source#lst-publisher,typescript]
+----
+import { exportToEpub } from './services/epubExporter'; // <1>
+import { parseOutline } from './services/outlineService';  // <2>
+
+async function publishTechnicalBook(adocContent: string) {
+  const outline = parseOutline(adocContent);             // <3>
+  console.log(`Document contains ${outline.length} headings.`);
+  
+  const success = await exportToEpub(adocContent, meta, null); // <4>
+  return success;
+}
+----
+<1> Import the EPUB3 publisher module.
+<2> Import the real-time AsciiDoc heading outline parser.
+<3> Extract chapter sections and line numbers.
+<4> Export complete e-book with embedded SVG diagrams and styles.
+
+=== Math Formulas (STEM)
+
+AsciiDoc Studio renders inline and block math via KaTeX. For example, the time complexity of binary search is stem:[O(\log n)], and more generally the master theorem gives us stem:[T(n) = aT(n/b) + f(n)] for divide-and-conquer recurrences.
+
+The closed-form solution for the number of pairwise comparisons in a full binary tournament is shown in <<eq-sum-identity>>:
+
+[#eq-sum-identity]
+.Pairwise comparison total
+[stem]
+++++
+\sum_{i=1}^{n} i = \frac{n(n+1)}{2}
+++++
+
+As <<eq-sum-identity>> shows, this identity also underlies the closed-form
+running time of any single-pass pairwise comparison algorithm. The PDF keeps
+the formula centered while placing its publication number at the right edge.
+
+=== Embedded Image Test
+
+Below is a referenced local image asset with caption:
+
+[#fig-arch-diagram]
+.AsciiDoc Studio Local Image Asset
+image::images/sample.jpg[AsciiDoc Architecture Diagram, width=600, align="center"]
+
+=== Summary Checklist
+
+* [x] AsciiDoc syntax highlighting
+* [x] Multi-level chapter headings
+* [x] Real-time Mermaid diagram rendering
+* [x] Embedded PNG/SVG/JPG image support
+* [x] Automatic figure/table numbering & cross-referencing
+* [x] One-click HTML & EPUB3 publishing

@@ -1,0 +1,104 @@
+== Chapter 5: Publication Semantics
+
+This chapter exercises the closed publication semantics that AsciiDoc Studio
+converts to SafeDocument data before PDF, HTML, or EPUB rendering. No Typst
+code is embedded in the manuscript.
+
+[#thm-safe-boundary]
+[theorem]
+.Safe output boundary
+====
+Every publishing renderer must consume only SafeDocument data and escape all
+leaf text at its own output boundary.
+====
+
+The statement in <<thm-safe-boundary>> is a numbered, linkable theorem. For a
+print-page reference use pageref:thm-safe-boundary[].
+
+[#def-publication-intent]
+[definition]
+.Publication intent
+====
+An author declares semantic intent in AsciiDoc; the selected publication style
+decides the visual treatment without accepting executable layout code.
+====
+
+[example]
+.A safe example
+====
+The inline citation cite:[knuth1984] and the block in <<def-publication-intent>>
+continue to work inside formal publication material.
+====
+
+[#alg-preflight]
+[algorithm]
+.Preflight routine
+====
+. Normalize the manuscript into SafeDocument.
+. Report integrity and publication issues.
+. Produce the final PDF only when blocking errors are resolved.
+====
+
+[proof]
+.Why the model remains reviewable
+====
+The accepted node kinds and their fields are finite. A reviewer can therefore
+reason about every path from a manuscript to the generated PDF.
+====
+
+[columns,columns=2]
+====
+=== Two-column editorial note
+
+Use a column container only for short magazine or journal passages. Long book
+chapters stay single-column for stable pagination and accessible reading.
+
+The PDF renderer uses a fixed two- or three-column layout; HTML and EPUB use
+CSS columns as a readable approximation.
+====
+
+=== Rich tables and attributed quotations
+
+.Shared conversion vocabulary
+|===
+|Capability |SafeDocument to Typst result
+
+|*Rich table cell*
+|Keeps *emphasis*, `code`, stem:[x^2], and link:https://typst.app[Typst links].
+
+|Cross-reference in a cell
+|Links to <<thm-safe-boundary,the safe-output theorem>> without losing the
+publication label in PDF.
+
+|Citation in a cell
+|Keeps cite:[knuth1984] in first-appearance order for the References section.
+
+|Inline artwork
+|image:images/sample.jpg[Small sample cover, width=64] stays a document-local
+asset in HTML, EPUB, and PDF exports.
+|===
+
+[quote, Ada Lovelace, Notes]
+____
+A publishing tool should make an author's intent portable without giving it
+an executable escape hatch.
+____
+
+The table above deliberately combines the shared inline vocabulary in one
+place: nested emphasis, literal code, math, safe external links, a local
+image, a bibliography marker, and an internal cross-reference. It is a quick
+manual regression sample for the `AsciiDoc → SafeDocument → Typst` pipeline.
+
+[frontmatter]
+.Edition note
+====
+This front-matter section starts on a fresh PDF page. It is useful for a
+dedication, copyright page, or foreword in a book manuscript.
+====
+
+[backmatter]
+.About this edition
+====
+Back matter also starts on a fresh PDF page and is appropriate for author
+notes, acknowledgements, or an index supplied by the author.
+====

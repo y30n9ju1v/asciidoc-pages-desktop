@@ -1,0 +1,42 @@
+== Chapter 1: Introduction & Basic Syntax
+
+AsciiDoc is a human-readable text document format for writing technical notes, documentation, articles, books, and presentation slides.footnote:[AsciiDoc was created by Stuart Rackham in 2002 and is now maintained as an OASIS technical committee standard.]
+
+The rendering engine used in this project, Asciidoctor.js, is a WebAssembly build of the Ruby-based Asciidoctor processor.footnote:[See https://asciidoctor.org for the full specification and reference implementation.]
+
+This sentence also carries a deferred publishing note.endnote:[This endnote is collected in a Notes section, independently numbered from page footnotes. It can contain *emphasis* and cite:[knuth1984].]
+
+=== Admonition Callouts
+
+NOTE: This is a standard note block. Use it to highlight general helpful facts.
+
+TIP: You can preview your document in real-time and export directly to HTML or EPUB3 format!
+
+IMPORTANT: Always format your chapter headings using AsciiDoc standard equals syntax (`== Chapter Title`).
+
+WARNING: Avoid using hardcoded pixel dimensions in HTML elements for proper mobile responsiveness.
+
+CAUTION: Be careful with raw HTML injection; AsciiDoc Studio automatically sanitizes unsafe tags.
+
+=== Formatted Content Matrix & Cross References
+
+As shown in <<tbl-matrix>>, AsciiDoc supports rich features. Also see <<fig-sample-cover>> for a local image sample.
+
+.AsciiDoc Studio Feature Overview
+[#tbl-matrix,cols="1,2,2",options="header"]
+|===
+| Category | Feature | Description
+| Syntax | Markups | Bold, Italic, Monospace, Subscript, Superscript
+| Diagrams | Mermaid.js | Sequence, Flowchart, Mindmap, Gantt
+| Export | HTML & EPUB | Standalone HTML and Kindle-compatible EPUB3
+| Editor | Monaco + Vim | Full Korean IME support and Vim navigation
+|===
+
+[#fig-sample-cover]
+.Sample Local Book Cover Asset
+image::images/sample.jpg[width=500]
+
+.A calm publishing workspace
+image::images/publishing-desk.png[Editorial illustration of a writer's publishing desk, width=1100]
+
+The illustration above is a project-local PNG asset. It exercises image captions, relative-path resolution, HTML/EPUB bundling, and Typst PDF placement.

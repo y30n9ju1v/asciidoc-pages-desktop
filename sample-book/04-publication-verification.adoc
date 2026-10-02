@@ -1,0 +1,30 @@
+== Chapter 4: PDF Publication Verification
+
+This final chapter is a compact acceptance test for the print PDF pipeline.
+Open `main.adoc` from the `sample-book` folder, wait for the PDF preview, and
+confirm the following publishing conventions in the generated pages.
+
+=== Numbered Listings and Callouts
+
+The automatic reference <<lst-publisher>> must read as a numbered listing in
+the PDF. Its source markers render as `(1)` through `(4)`, and each marker has
+its explanation immediately below the listing.
+
+An author-supplied label takes precedence over automatic publication wording:
+see <<lst-publisher,the publisher routine>>. This must retain “the publisher
+routine” rather than being replaced by the automatic listing label.
+
+=== Numbered Equations and References
+
+The automatic reference <<eq-sum-identity>> must read as a numbered equation
+in the PDF. Its equation number appears at the right edge, while the formula
+itself stays centered on the text measure.
+
+An explicit cross-reference also keeps its editorial wording: <<eq-sum-identity,the triangular-number identity>>.
+
+=== PDF Preview Checklist
+
+* [x] Listing caption, `(n)` markers, and callout explanations stay together.
+* [x] Equation number and optional caption use the PDF publication layout.
+* [x] Automatic and explicit cross-reference labels remain distinct.
+* [x] Included chapters, local JPG/PNG images, and Mermaid diagrams render in one manuscript.

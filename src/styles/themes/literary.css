@@ -1,0 +1,119 @@
+.asciidoc-preview-container.theme-literary {
+  --adoc-bg: #fffdf8;
+  --adoc-card-bg: #f5f1e8;
+  --adoc-text: #28251f;
+  --adoc-muted: #756b5d;
+  --adoc-accent: #5f4d39;
+  --adoc-border: #dcd4c7;
+  --adoc-code-bg: #f2eee6;
+  --adoc-quote-border: #b49a78;
+  max-width: 43rem;
+  margin: 3rem auto;
+  padding: clamp(2.25rem, 8vw, 6.5rem);
+  border: 1px solid #e6e0d5;
+  box-shadow: 0 1.25rem 3.5rem rgb(47 40 29 / 0.08);
+  color: var(--adoc-text);
+  font-family: 'Iowan Old Style', 'Noto Serif KR', 'AppleMyungjo', Georgia, serif;
+  font-size: 11pt;
+  line-height: 1.8;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.theme-literary h1,
+.theme-literary h2,
+.theme-literary h3 {
+  color: #28251f;
+  font-family: 'Iowan Old Style', 'Noto Serif KR', 'AppleMyungjo', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.theme-literary h1 {
+  border: 0;
+  font-size: clamp(2.2rem, 5vw, 3.35rem);
+  line-height: 1.2;
+  margin: 0.35em 0 1.5em;
+  padding: 0;
+  text-align: center;
+}
+
+.theme-literary h2 {
+  border: 0;
+  font-size: 1.45rem;
+  line-height: 1.4;
+  margin: 3.5em 0 1em;
+  padding: 0;
+  text-align: center;
+}
+
+.theme-literary h2::before {
+  color: #a88d6c;
+  content: '— ';
+}
+
+.theme-literary h2::after {
+  color: #a88d6c;
+  content: ' —';
+}
+
+.theme-literary h3 {
+  color: #5f4d39;
+  font-size: 1.15rem;
+  margin: 2.3em 0 0.7em;
+}
+
+.theme-literary p {
+  margin: 0;
+  text-indent: 1.4em;
+}
+
+.theme-literary h1 + p,
+.theme-literary h2 + p,
+.theme-literary h3 + p,
+.theme-literary #header + p,
+.theme-literary .paragraph + .listingblock,
+.theme-literary .listingblock + .paragraph p {
+  text-indent: 0;
+}
+
+.theme-literary a {
+  color: #5f4d39;
+  text-decoration-color: #c9b397;
+  text-underline-offset: 0.18em;
+}
+
+.theme-literary code,
+.theme-literary .listingblock pre {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+}
+
+.theme-literary .listingblock pre,
+.theme-literary .admonitionblock,
+.theme-literary #toc {
+  border-radius: 0.35rem;
+}
+
+.theme-literary table.tableblock th {
+  background: #eee8dd;
+  color: #28251f;
+}
+
+.theme-literary blockquote,
+.theme-literary .quoteblock {
+  color: #5a5146;
+  font-size: 1.05em;
+}
+
+@media (max-width: 640px) {
+  .asciidoc-preview-container.theme-literary {
+    margin: 0;
+    text-align: start;
+  }
+
+  .theme-literary p {
+    margin-bottom: 1.15em;
+    text-indent: 0;
+  }
+}

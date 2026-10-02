@@ -1,0 +1,113 @@
+.asciidoc-preview-container.theme-reference {
+  --adoc-bg: #fcfefd;
+  --adoc-card-bg: #f0f7f5;
+  --adoc-text: #18332f;
+  --adoc-muted: #5b716d;
+  --adoc-accent: #17695f;
+  --adoc-border: #cfe0dc;
+  --adoc-code-bg: #edf5f3;
+  --adoc-quote-border: #4e9d91;
+  max-width: 54rem;
+  margin: 1.75rem auto;
+  padding: clamp(1.75rem, 6vw, 4.5rem);
+  border: 1px solid #dce9e6;
+  border-radius: 0.6rem;
+  box-shadow: 0 0.9rem 2.75rem rgb(24 51 47 / 0.08);
+  color: var(--adoc-text);
+  font-family:
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Noto Sans KR',
+    sans-serif;
+  font-size: 10pt;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.theme-reference h1,
+.theme-reference h2,
+.theme-reference h3 {
+  color: #123b35;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.theme-reference p {
+  margin: 0 0 0.8em;
+  text-indent: 0;
+}
+
+.theme-reference h1 {
+  border: 0;
+  font-size: clamp(2.1rem, 5vw, 3.15rem);
+  line-height: 1.17;
+  margin-bottom: 0.9em;
+  padding: 0;
+}
+
+.theme-reference h2 {
+  border-bottom: 1px solid #b9d4ce;
+  font-size: 1.6rem;
+  line-height: 1.35;
+  margin: 2.7em 0 0.85em;
+  padding-bottom: 0.42em;
+}
+
+.theme-reference h3 {
+  color: #17695f;
+  font-size: 1.2rem;
+  line-height: 1.45;
+  margin: 2.1em 0 0.65em;
+}
+
+.theme-reference #toc {
+  border-left: 3px solid #4e9d91;
+  border-radius: 0.35rem;
+}
+
+.theme-reference a {
+  color: #0d7568;
+  text-decoration-color: #83c8bd;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.theme-reference code,
+.theme-reference .listingblock pre {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+}
+
+.theme-reference code {
+  border: 1px solid #cfe0dc;
+  border-radius: 0.28rem;
+  color: #125e54;
+}
+
+.theme-reference .listingblock pre {
+  border-color: #c4dcd6;
+  border-radius: 0.45rem;
+  font-size: 0.88em;
+  line-height: 1.65;
+}
+
+.theme-reference .admonitionblock {
+  border-radius: 0.45rem;
+}
+
+.theme-reference table.tableblock th {
+  background: #e6f2ef;
+  color: #123b35;
+}
+
+.theme-reference blockquote,
+.theme-reference .quoteblock {
+  color: #44615c;
+}
+
+@media (max-width: 640px) {
+  .asciidoc-preview-container.theme-reference {
+    margin: 0;
+  }
+}

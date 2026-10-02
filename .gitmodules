@@ -1,0 +1,3 @@
+[submodule "packages/asciidoc-typst"]
+	path = packages/asciidoc-typst
+	url = https://github.com/y30n9ju1v/asciidoc-typst.git

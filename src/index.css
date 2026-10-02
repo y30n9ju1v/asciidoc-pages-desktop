@@ -1,0 +1,564 @@
+/* Tailwind must be the very first statement in the stylesheet - everything
+   else (this app's own CSS variables/rules, asciidoc-theme.css) comes after. */
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@import './styles/asciidoc-theme.css';
+
+/* Obsidian-inspired neutral surfaces with violet interactive states. */
+:root,
+[data-color-mode='dark'] {
+  --bg-app: #1e1e1e;
+  --bg-header: #181818;
+  --bg-explorer: #161616;
+  --bg-preview: #1e1e1e;
+  --bg-button: #262626;
+  --bg-button-hover: #2f2f2f;
+  --bg-button-primary: #36322e;
+  --bg-file-indicator: #1c1c1c;
+  --border-color: #2a2a2a;
+  --text-main: #dcddde;
+  --text-muted: #9a9a9a;
+  --text-subtle: #6e6e6e;
+  --color-brand: #8875ff;
+  /* Named --app-accent rather than the more obvious --color-accent: shadcn/
+     Tailwind's own "accent" semantic token (see the @theme inline block
+     below) resolves to a literal `--color-accent` custom property too, and
+     since CSS custom properties aren't namespaced, that would silently
+     clobber this one (or vice versa) by cascade order alone. */
+  --app-accent: #b389f9;
+  --color-warning: #e0af68;
+  --item-hover-bg: rgb(255 255 255 / 6%);
+  --item-active-bg: rgb(136 117 255 / 16%);
+
+  /* shadcn/ui semantic tokens - values borrowed from this app's own palette
+     above so shadcn components (Button, Select, Tabs, Dialog, ...) blend
+     into the existing dark editor look instead of shadcn's stock zinc/slate
+     defaults. Bare (unprefixed) names, same convention shadcn itself uses -
+     the @theme inline block below is what turns these into the `--color-*`
+     custom properties Tailwind's bg-primary/text-foreground/etc. utilities
+     actually read. */
+  --radius: 0.5rem;
+  --background: var(--bg-app);
+  --foreground: var(--text-main);
+  --card: var(--bg-header);
+  --card-foreground: var(--text-main);
+  --popover: var(--bg-header);
+  --popover-foreground: var(--text-main);
+  /* A deeper fill preserves white-text contrast; the lighter brand is for accents. */
+  --primary: #6d54e8;
+  --primary-foreground: #ffffff;
+  --secondary: var(--bg-button);
+  --secondary-foreground: var(--text-main);
+  --muted: var(--bg-explorer);
+  --muted-foreground: var(--text-muted);
+  --accent: var(--item-hover-bg);
+  --accent-foreground: var(--text-main);
+  --destructive: #e06c75;
+  --destructive-foreground: #ffffff;
+  --border: var(--border-color);
+  --input: var(--border-color);
+  --ring: var(--color-brand);
+}
+
+[data-color-mode='light'] {
+  --bg-app: #ffffff;
+  --bg-header: #f6f6f7;
+  --bg-explorer: #f2f3f5;
+  --bg-preview: #ffffff;
+  --bg-button: #ececee;
+  --bg-button-hover: #e3e3e6;
+  --bg-button-primary: #ece7fd;
+  --bg-file-indicator: #f2f3f5;
+  --border-color: #e3e3e6;
+  --text-main: #202020;
+  --text-muted: #6c6c6c;
+  --text-subtle: #8a8a8a;
+  --color-brand: #6d28d9;
+  --app-accent: #9333ea;
+  --color-warning: #9a6700;
+  --item-hover-bg: rgb(0 0 0 / 4.5%);
+  --item-active-bg: rgb(109 40 217 / 10%);
+
+  /* This darker light-mode brand already supports white text. */
+  --primary: var(--color-brand);
+  --primary-foreground: #ffffff;
+  --destructive: #cf222e;
+}
+
+/* Maps the semantic tokens above into the `--color-*`/`--radius-*` custom
+   properties Tailwind's utility classes (bg-background, text-foreground,
+   bg-primary, rounded-lg, ...) actually reference - see any shadcn/ui
+   Tailwind v4 setup for this exact pattern. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* Wrapped in Tailwind's own `base` layer (declared by `@import "tailwindcss"`
+   above) rather than left unlayered: per the CSS cascade-layers spec, an
+   unlayered rule always beats *any* layered rule regardless of selector
+   specificity or source order - so this reset was silently winning against
+   every Tailwind spacing utility (`.px-3`, `.py-1.5`, `.gap-1.5`, ...) added
+   once shadcn/ui components started using them, since Tailwind's own
+   utilities live in the later `utilities` layer. Wrapping this in `base`
+   puts it in the same priority tier Tailwind's own Preflight reset uses,
+   so `utilities` (declared after `base`) correctly wins again. */
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Main Split View */
+.app-workspace {
+  display: flex;
+  /* flex: 1 alone (no hardcoded "100vh minus header height") gives every
+     child a definite computed height via the flex layout algorithm itself,
+     so it doesn't need updating every time AppHeader's own height changes
+     (it moved from a fixed 52px to Tailwind's h-14/56px when AppHeader was
+     rebuilt with shadcn/ui components - this used to silently clip/gap by
+     the difference). */
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.pane {
+  height: 100%;
+  min-width: 0;
+  position: relative;
+}
+
+.pane-explorer {
+  background: var(--bg-explorer);
+  overflow: hidden;
+}
+
+.pane-resizer {
+  /* Keep a generous hit area without making the editor/PDF boundary look
+     like a permanent divider. The visible rule itself lives in ::before. */
+  width: 7px;
+  height: 100%;
+  cursor: col-resize;
+  flex-shrink: 0;
+  z-index: 5;
+  position: relative;
+  touch-action: none;
+}
+
+.pane-resizer::before {
+  content: '';
+  position: absolute;
+  inset: 0 3px;
+  pointer-events: none;
+  border-radius: 999px;
+  background: var(--border-color);
+  opacity: 0.28;
+  transform: scaleX(0.5);
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.pane-resizer:hover::before,
+.pane-resizer:active::before {
+  background: var(--color-brand);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-brand) 45%, transparent);
+  opacity: 0.9;
+  transform: scaleX(1.5);
+}
+
+/* iPad uses a coarse pointer even in landscape. A wide invisible target keeps
+   split-view resizing reliable without turning the editor into a dense UI. */
+@media (hover: none) and (pointer: coarse) and (min-width: 768px) {
+  .app-container {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .pane-resizer {
+    width: 16px;
+  }
+
+  .pane-resizer::before {
+    inset: 0 7px;
+  }
+
+  .pane-resizer:active::before {
+    background: var(--color-brand);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--color-brand) 45%, transparent);
+    opacity: 0.9;
+    transform: scaleX(1.5);
+  }
+
+  .app-header {
+    min-height: 3.5rem;
+  }
+
+  .app-header button,
+  .app-header [data-slot='select-trigger'] {
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+  }
+
+  .pane-editor button,
+  .pane-preview button {
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+  }
+}
+
+.explorer-toggle {
+  position: absolute;
+  top: 10px;
+  z-index: 10;
+  display: grid;
+  width: 26px;
+  height: 30px;
+  padding: 0;
+  place-items: center;
+  color: var(--text-muted);
+  background: var(--bg-app);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 8%);
+  cursor: pointer;
+}
+
+.explorer-toggle:hover {
+  color: var(--text-main);
+  background: var(--bg-button);
+  border-color: var(--color-brand);
+}
+
+.explorer-toggle:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+.explorer-toggle svg {
+  width: 15px;
+  height: 15px;
+}
+
+.explorer-toggle.is-collapsed {
+  left: 8px;
+}
+
+.pane-editor {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.vim-status-bar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 22px;
+  padding: 0 10px;
+  background: var(--bg-button);
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-family: 'Fira Code', Consolas, monospace;
+  font-size: 0.75rem;
+}
+
+.pane-preview {
+  flex: 1 1 50%;
+  height: 100%;
+  position: relative;
+  min-width: 0;
+  overflow: auto;
+}
+
+.pane-loading {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.preview-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background-color: var(--bg-preview);
+  transition: background-color 0.2s ease;
+}
+
+/* File Explorer & Outline */
+/* Document Outline Tree */
+.outline-tree {
+  padding: 4px 0;
+}
+
+.outline-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease;
+}
+
+.outline-item:hover {
+  background: var(--item-hover-bg);
+  color: var(--text-main);
+}
+
+.outline-item:focus-visible,
+.backlink-item:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: -2px;
+}
+
+.outline-item.level-1 {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.outline-item-icon {
+  flex-shrink: 0;
+  color: var(--text-subtle);
+}
+
+.outline-item-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.outline-item-line {
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+  font-family: monospace;
+  margin-left: 4px;
+}
+
+.outline-item-words {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+  font-family: monospace;
+  margin-left: 4px;
+}
+
+.outline-item-status {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 6px;
+  padding: 2px;
+  border: none;
+  background: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--text-subtle);
+}
+
+.outline-item-status:hover {
+  background: var(--item-hover-bg);
+}
+
+.outline-item-status.status-unset {
+  opacity: 0.35;
+}
+
+.outline-item-status.status-draft {
+  color: #9aa0a8;
+}
+
+.outline-item-status.status-review {
+  color: #e5c07b;
+}
+
+.outline-item-status.status-done {
+  color: #98c379;
+}
+
+.explorer-empty {
+  padding: 12px;
+  font-size: 0.8rem;
+  color: var(--text-subtle);
+}
+
+@media print {
+  /* Override LivePreview inline styles that would add extra spacing in print */
+  .preview-container {
+    background-color: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .asciidoc-preview-container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+/* Backlinks panel (see components/Explorer/BacklinksPanel.tsx) - the
+   sidebar's third tab, listing every other note that [[links]] here. */
+.backlinks-list {
+  padding: 6px;
+}
+.backlink-item {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+.backlink-item:hover {
+  background: var(--item-hover-bg);
+}
+.backlink-item-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+.backlink-item-icon {
+  flex-shrink: 0;
+  color: var(--text-subtle);
+}
+.backlink-item-snippet {
+  margin: 4px 0 0 19px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Tags panel (see components/Explorer/TagsPanel.tsx) - reuses
+   .backlinks-list/.backlink-item/.backlink-item-title/.backlink-item-icon
+   for the notes-for-a-tag list, adding only what's specific to the tag
+   list itself. */
+.tags-list {
+  padding: 6px;
+}
+.tag-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+.tag-item:hover {
+  background: var(--item-hover-bg);
+}
+.tag-item-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+.tag-item-count {
+  font-size: 0.75rem;
+  color: var(--text-subtle);
+}
+.tag-back-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 6px 8px;
+  border: 0;
+  background: transparent;
+  color: var(--text-subtle);
+  font: inherit;
+  font-size: 0.78rem;
+  text-align: left;
+  cursor: pointer;
+}
+.tag-back-button:hover {
+  color: var(--text-main);
+}
+.tag-selected-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}

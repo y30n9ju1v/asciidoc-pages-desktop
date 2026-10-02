@@ -1,0 +1,773 @@
+/* AsciiDoc Modern Preview & Print Theme */
+
+:root {
+  --adoc-bg: #1e1e24;
+  --adoc-card-bg: #282c34;
+  --adoc-text: #e6e6e6;
+  --adoc-muted: #abb2bf;
+  --adoc-accent: #61afef;
+  --adoc-border: #3b4048;
+  --adoc-code-bg: #181a1f;
+  --adoc-quote-border: #c678dd;
+}
+
+.asciidoc-preview-container {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: var(--adoc-text);
+  background-color: var(--adoc-bg);
+  line-height: 1.8;
+  font-size: 15.5px;
+  padding: 56px 64px;
+  max-width: 780px;
+  margin: 36px auto;
+  border-radius: 4px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+  text-align: justify;
+}
+
+.asciidoc-preview-container h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--adoc-accent);
+  border-bottom: 2px solid var(--adoc-border);
+  padding-bottom: 12px;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.asciidoc-preview-container h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #e5c07b;
+  margin-top: 32px;
+  border-bottom: 1px solid var(--adoc-border);
+  padding-bottom: 8px;
+}
+
+.asciidoc-preview-container h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #98c379;
+  margin-top: 24px;
+}
+
+.asciidoc-preview-container h4,
+.asciidoc-preview-container h5 {
+  font-size: 1.1rem;
+  color: #61afef;
+}
+
+/* Author Details */
+.asciidoc-preview-container #header .details {
+  color: var(--adoc-muted);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+/* Table of Contents */
+.asciidoc-preview-container #toc {
+  background-color: var(--adoc-card-bg);
+  border: 1px solid var(--adoc-border);
+  border-radius: 8px;
+  padding: 18px 24px;
+  margin-bottom: 30px;
+}
+
+.asciidoc-preview-container #toc #toctitle {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--adoc-accent);
+  margin-bottom: 10px;
+}
+
+.asciidoc-preview-container #toc ul {
+  list-style: none;
+  padding-left: 16px;
+  margin: 0;
+}
+
+.asciidoc-preview-container #toc li {
+  margin: 6px 0;
+}
+
+.asciidoc-preview-container #toc a {
+  color: var(--adoc-text);
+  text-decoration: none;
+}
+
+.asciidoc-preview-container #toc a:hover {
+  color: var(--adoc-accent);
+  text-decoration: underline;
+}
+
+/* Links */
+.asciidoc-preview-container a {
+  color: var(--adoc-accent);
+  text-decoration: none;
+}
+
+.asciidoc-preview-container a:hover {
+  text-decoration: underline;
+}
+
+/* [[Wikilinks]] (see wikilinkService.ts) - a resolved link to another note
+   gets a solid underline like a normal link; an unresolved one (no note by
+   that name in the vault yet) is dimmed with a dashed underline, Obsidian's
+   convention for "click to create this note". */
+.asciidoc-preview-container a.wikilink {
+  border-bottom: 1px solid currentColor;
+  text-decoration: none;
+}
+
+.asciidoc-preview-container a.wikilink-new {
+  color: var(--adoc-muted);
+  border-bottom-style: dashed;
+}
+
+/* Code and Pre Blocks */
+.asciidoc-preview-container code {
+  font-family: 'Fira Code', Consolas, monospace;
+  background-color: var(--adoc-code-bg);
+  color: #e5c07b;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.asciidoc-preview-container pre {
+  background-color: var(--adoc-code-bg);
+  border: 1px solid var(--adoc-border);
+  border-radius: 6px;
+  padding: 16px;
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+.asciidoc-preview-container pre code {
+  background: none;
+  color: var(--adoc-text);
+  padding: 0;
+}
+
+/* Figure, Table, and Code Captions (.title) */
+.asciidoc-preview-container .title,
+.asciidoc-preview-container caption {
+  font-weight: 700;
+  font-size: 0.94em;
+  margin-bottom: 8px;
+  text-align: center;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* Images: without this, an image wider/taller than the container (or a printed
+   page) simply overflows and gets clipped instead of scaling down. */
+.asciidoc-preview-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Admonitions (NOTE, TIP, WARNING, etc.) */
+.asciidoc-preview-container .admonitionblock {
+  margin: 20px 0;
+  border-radius: 6px;
+  background: var(--adoc-card-bg);
+  border-left: 4px solid var(--adoc-accent);
+  overflow: hidden;
+}
+
+.asciidoc-preview-container .admonitionblock.note {
+  border-left-color: #61afef;
+}
+.asciidoc-preview-container .admonitionblock.tip {
+  border-left-color: #98c379;
+}
+.asciidoc-preview-container .admonitionblock.important {
+  border-left-color: #e5c07b;
+}
+.asciidoc-preview-container .admonitionblock.warning {
+  border-left-color: #d19a66;
+}
+.asciidoc-preview-container .admonitionblock.caution {
+  border-left-color: #e06c75;
+}
+
+.asciidoc-preview-container .admonitionblock table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.asciidoc-preview-container .admonitionblock td.icon {
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  width: 110px;
+  text-align: center;
+  vertical-align: middle;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.asciidoc-preview-container .admonitionblock.note td.icon {
+  color: #0284c7;
+  background: rgba(2, 132, 199, 0.08);
+}
+.asciidoc-preview-container .admonitionblock.note td.icon::before {
+  content: 'ℹ️ ';
+  margin-right: 4px;
+}
+
+.asciidoc-preview-container .admonitionblock.tip td.icon {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+}
+.asciidoc-preview-container .admonitionblock.tip td.icon::before {
+  content: '💡 ';
+  margin-right: 4px;
+}
+
+.asciidoc-preview-container .admonitionblock.warning td.icon {
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.08);
+}
+.asciidoc-preview-container .admonitionblock.warning td.icon::before {
+  content: '⚠️ ';
+  margin-right: 4px;
+}
+
+.asciidoc-preview-container .admonitionblock.important td.icon {
+  color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.08);
+}
+.asciidoc-preview-container .admonitionblock.important td.icon::before {
+  content: '📌 ';
+  margin-right: 4px;
+}
+
+.asciidoc-preview-container .admonitionblock.caution td.icon {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+}
+.asciidoc-preview-container .admonitionblock.caution td.icon::before {
+  content: '🚨 ';
+  margin-right: 4px;
+}
+
+.asciidoc-preview-container .admonitionblock td.content {
+  padding: 12px 20px;
+}
+
+/* Tables */
+.asciidoc-preview-container table.tableblock {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  border: 1px solid var(--adoc-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.asciidoc-preview-container table.tableblock th,
+.asciidoc-preview-container table.tableblock td {
+  padding: 10px 16px;
+  border: 1px solid var(--adoc-border);
+  text-align: left;
+}
+
+.asciidoc-preview-container table.tableblock th {
+  background-color: var(--adoc-card-bg);
+  color: var(--adoc-accent);
+  font-weight: 600;
+}
+
+/* Blockquotes */
+.asciidoc-preview-container .quoteblock {
+  border-left: 4px solid var(--adoc-quote-border);
+  padding: 8px 20px;
+  margin: 20px 0;
+  background: rgba(198, 120, 221, 0.05);
+  border-radius: 0 6px 6px 0;
+}
+
+/* Description Lists (used for glossaries: `Term:: Definition`) */
+.asciidoc-preview-container .dlist dl {
+  margin: 16px 0;
+}
+
+.asciidoc-preview-container .dlist dt {
+  font-weight: 700;
+  color: var(--adoc-accent);
+  margin-top: 14px;
+}
+
+.asciidoc-preview-container .dlist dt:first-child {
+  margin-top: 0;
+}
+
+.asciidoc-preview-container .dlist dd {
+  margin: 4px 0 0 20px;
+  color: var(--adoc-text);
+}
+
+.asciidoc-preview-container .dlist dd > .paragraph > p {
+  margin: 0;
+}
+
+/* Numbered display equations ([stem] blocks) - see mathRenderer.ts */
+.asciidoc-preview-container .stemblock {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.asciidoc-preview-container .stemblock .content {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.asciidoc-preview-container .stemblock .equation-number {
+  flex: 0 0 auto;
+  margin-left: 16px;
+  color: var(--adoc-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Footnotes */
+.asciidoc-preview-container sup.footnote,
+.asciidoc-preview-container sup.footnoteref,
+.asciidoc-preview-container sup.endnote {
+  font-size: 0.75em;
+  color: var(--adoc-accent);
+}
+
+.asciidoc-preview-container sup.footnote a,
+.asciidoc-preview-container sup.footnoteref a,
+.asciidoc-preview-container sup.endnote a {
+  color: inherit;
+  text-decoration: none;
+  padding: 0 1px;
+}
+
+.asciidoc-preview-container sup.footnote a:hover,
+.asciidoc-preview-container sup.footnoteref a:hover,
+.asciidoc-preview-container sup.endnote a:hover {
+  text-decoration: underline;
+}
+
+/* One .footnotes block per chapter (see footnoteRenderer.ts) rather than a single
+   #footnotes block at the very end of the whole document - true per-page footnotes
+   aren't achievable (no browser implements CSS Paged Media's `float: footnote`),
+   so grouping by chapter is the closest practical approximation. */
+.asciidoc-preview-container .footnotes {
+  margin-top: 40px;
+  padding-top: 16px;
+  border-top: 1px solid var(--adoc-border);
+  font-size: 0.85em;
+  color: var(--adoc-muted);
+  text-align: left;
+}
+
+.asciidoc-preview-container .footnotes hr {
+  display: none;
+}
+
+.asciidoc-preview-container .footnotes .footnote {
+  margin: 4px 0;
+}
+
+.asciidoc-preview-container .footnotes .footnote a {
+  color: var(--adoc-accent);
+  text-decoration: none;
+  margin-right: 4px;
+}
+
+/* Deferred notes intentionally remain at the render unit's end, unlike
+   footnotes which footnoteRenderer.ts moves beside their owning chapter. */
+.asciidoc-preview-container #endnotes {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 2px solid var(--adoc-border);
+  color: var(--adoc-muted);
+  text-align: left;
+}
+
+.asciidoc-preview-container #endnotes hr {
+  display: none;
+}
+
+.asciidoc-preview-container #endnotestitle {
+  margin-bottom: 12px;
+  color: var(--adoc-text);
+  font-family: var(--adoc-heading-font);
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+.asciidoc-preview-container #endnotes .endnote {
+  margin: 8px 0;
+  line-height: 1.65;
+}
+
+.asciidoc-preview-container #endnotes .endnote a {
+  color: var(--adoc-accent);
+  text-decoration: none;
+  margin-right: 4px;
+}
+
+/* Code Callouts (<1>, <2>, ... markers and their explanation list) */
+.asciidoc-preview-container b.conum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.3em;
+  height: 1.3em;
+  padding: 0 0.15em;
+  margin: 0 0.1em;
+  border-radius: 50%;
+  background: var(--adoc-accent);
+  color: var(--adoc-bg);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.75em;
+  line-height: 1.3em;
+  vertical-align: middle;
+  user-select: none;
+}
+
+.asciidoc-preview-container .colist {
+  margin: 12px 0 24px;
+  padding: 12px 20px;
+  background: var(--adoc-card-bg);
+  border-radius: 6px;
+}
+
+.asciidoc-preview-container .colist ol {
+  list-style: none;
+  counter-reset: conum-item;
+  margin: 0;
+  padding: 0;
+}
+
+.asciidoc-preview-container .colist ol li {
+  counter-increment: conum-item;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 6px 0;
+}
+
+.asciidoc-preview-container .colist ol li::before {
+  content: counter(conum-item);
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.3em;
+  height: 1.3em;
+  border-radius: 50%;
+  background: var(--adoc-accent);
+  color: var(--adoc-bg);
+  font-weight: 700;
+  font-size: 0.75em;
+}
+
+.asciidoc-preview-container .colist ol li p {
+  margin: 0;
+}
+
+/* Page Size Trim Presets & Proportional Typography */
+.asciidoc-preview-container.page-size-B5 {
+  max-width: 688px;
+  font-size: 15.5px;
+  line-height: 1.8;
+  padding: 48px 56px;
+}
+.asciidoc-preview-container.page-size-B5 h1 {
+  font-size: 2.1rem;
+}
+.asciidoc-preview-container.page-size-B5 h2 {
+  font-size: 1.55rem;
+}
+
+.asciidoc-preview-container.page-size-A4 {
+  max-width: 794px;
+  font-size: 16.5px;
+  line-height: 1.85;
+  padding: 56px 64px;
+}
+.asciidoc-preview-container.page-size-A4 h1 {
+  font-size: 2.3rem;
+}
+.asciidoc-preview-container.page-size-A4 h2 {
+  font-size: 1.65rem;
+}
+
+.asciidoc-preview-container.page-size-A5 {
+  max-width: 560px;
+  font-size: 14px;
+  line-height: 1.72;
+  padding: 36px 40px;
+}
+.asciidoc-preview-container.page-size-A5 h1 {
+  font-size: 1.85rem;
+}
+.asciidoc-preview-container.page-size-A5 h2 {
+  font-size: 1.4rem;
+}
+
+.asciidoc-preview-container.page-size-Letter {
+  max-width: 816px;
+  font-size: 16px;
+  line-height: 1.8;
+  padding: 52px 60px;
+}
+.asciidoc-preview-container.page-size-Letter h1 {
+  font-size: 2.2rem;
+}
+.asciidoc-preview-container.page-size-Letter h2 {
+  font-size: 1.6rem;
+}
+
+/* ------------------------------------------------------------- */
+/* PRINT STYLESHEET                                              */
+/* ------------------------------------------------------------- */
+
+/* @page must be a top-level rule for WKWebView to honour margin boxes.
+   Size and margin are overridden dynamically by htmlExporter.ts, but the
+   @bottom-center margin box must live here in the static stylesheet. */
+@page {
+  @bottom-center {
+    content: counter(page) ' / ' counter(pages);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    color: #888888;
+  }
+}
+
+@media print {
+  /* App chrome (non-content areas) gets white background so dark UI doesn't bleed */
+  html,
+  body {
+    background: white !important;
+    background-color: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+    width: 100% !important;
+  }
+
+  #root,
+  .app-container,
+  .app-workspace {
+    background: white !important;
+    background-color: white !important;
+    height: auto !important;
+    overflow: visible !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .app-header,
+  .pane-explorer,
+  .pane-editor,
+  .pane-resizer {
+    display: none !important;
+  }
+
+  .app-workspace {
+    display: block !important;
+  }
+
+  .pane-preview,
+  .preview-container {
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Document content: preserve theme colors exactly as-is */
+  .asciidoc-preview-container,
+  .asciidoc-preview-container * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .asciidoc-preview-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 11pt !important;
+    line-height: 1.7 !important;
+    box-sizing: border-box !important;
+    /* Remove the card shadow/border that shows as a thick rectangle in print */
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    outline: none !important;
+  }
+
+  /* Heading color is intentionally left to the active theme (.theme-<id> h1 etc, which
+     is loaded after this stylesheet so it wins the cascade) rather than forced black -
+     these publishing themes are meant to keep their accent colors in print. Body text,
+     backgrounds and boxed content below stay forced to black-on-white for ink economy
+     and reliable contrast regardless of theme. */
+  .asciidoc-preview-container h1 {
+    font-size: 1.6rem !important;
+    margin-top: 0 !important;
+    margin-bottom: 12pt !important;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .asciidoc-preview-container h2 {
+    font-size: 1.25rem !important;
+    margin-top: 16pt !important;
+    margin-bottom: 8pt !important;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .asciidoc-preview-container h3 {
+    font-size: 1.1rem !important;
+    margin-top: 12pt !important;
+    margin-bottom: 6pt !important;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .asciidoc-preview-container h4,
+  .asciidoc-preview-container h5 {
+    font-size: 1rem !important;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* AsciiDoc's explicit page-break directive (a `<<<` line on its own) converts to
+     this empty <div class="page-break">, which does nothing on its own - the actual
+     page-break-after behavior has to be supplied here. */
+  .asciidoc-preview-container .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .asciidoc-preview-container pre,
+  .asciidoc-preview-container table,
+  .asciidoc-preview-container .admonitionblock,
+  .asciidoc-preview-container .quoteblock {
+    background: #f8f9fa !important;
+    border: 1px solid #cccccc !important;
+    color: #000000 !important;
+    margin: 12pt 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .asciidoc-preview-container table {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    font-size: 9.5pt !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+    word-wrap: break-word !important;
+  }
+
+  .asciidoc-preview-container .admonitionblock,
+  .asciidoc-preview-container .quoteblock {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    font-size: 9.5pt !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .asciidoc-preview-container table.tableblock th,
+  .asciidoc-preview-container table.tableblock td {
+    padding: 6px 10px !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .asciidoc-preview-container pre {
+    overflow-x: hidden !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    word-break: break-all !important;
+    padding: 10px 12px !important;
+    font-size: 8.5pt !important;
+    line-height: 1.4 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .asciidoc-preview-container pre code,
+  .asciidoc-preview-container pre code.hljs {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: inherit !important;
+    font-size: 8.5pt !important;
+    word-break: break-all !important;
+  }
+
+  .asciidoc-preview-container code {
+    font-size: 8.5pt !important;
+    word-break: break-all !important;
+  }
+
+  .asciidoc-preview-container img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .mermaid-diagram-wrapper {
+    page-break-inside: avoid !important;
+    max-width: 100% !important;
+    margin: 16px auto !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .mermaid-diagram-wrapper svg {
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: 22cm !important;
+  }
+}
+
+.asciidoc-preview-container .formalblock {
+  margin: 1.5rem 0;
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-left: 4px solid var(--primary, #176457);
+  border-radius: 0.5rem;
+  padding: 1rem 1.1rem;
+  background: color-mix(in srgb, var(--muted, #f8fafc) 72%, transparent);
+}
+
+.asciidoc-preview-container .formalblock .title {
+  margin-bottom: 0.55rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.asciidoc-preview-container .publication-columns {
+  column-gap: 1.75rem;
+  margin: 1.25rem 0;
+}
+
+.asciidoc-preview-container .columns-2 {
+  column-count: 2;
+}
+.asciidoc-preview-container .columns-3 {
+  column-count: 3;
+}
+.asciidoc-preview-container .publication-columns > * {
+  break-inside: avoid;
+}

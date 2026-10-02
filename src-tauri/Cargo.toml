@@ -1,0 +1,43 @@
+[package]
+name = "tauri-app"
+version = "0.1.0"
+description = "A Tauri App"
+authors = ["you"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "tauri_app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["protocol-asset"] }
+tauri-plugin-dialog = "2"
+tauri-plugin-fs = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.40.2", features = ["bundled"] }
+typst-as-lib = { version = "=0.16.0", default-features = false, features = ["typst-kit-fonts", "typst-kit-embed-fonts"] }
+typst-pdf = "=0.15.1"
+typst-render = "=0.15.1"
+mitex = "=0.2.4"
+typst = "=0.15.1"
+typst-layout = "=0.15.1"
+chrono = { version = "=0.4.45", default-features = false, features = ["clock"] }
+
+[dev-dependencies]
+tiny-skia = "=0.12.0"
+typst-library = "=0.15.1"
+# Adds tauri::test's mock App/AppHandle (MockRuntime) - used to test that
+# compile_typst_pdf's document-root trust check actually consults the fs
+# plugin's runtime Scope, without needing a real window. Only unified into
+# the build when running tests (see typst_compiler.rs's own test module),
+# never present in a release build.
+tauri = { version = "2", features = ["test"] }

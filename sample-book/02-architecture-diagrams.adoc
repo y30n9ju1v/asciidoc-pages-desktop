@@ -1,0 +1,54 @@
+== Chapter 2: Architecture & Mermaid Diagrams
+
+This chapter showcases various interactive Mermaid.js diagrams embedded inside AsciiDoc code blocks with custom width controls.
+
+=== 1. System Sequence Diagram (Width: 600px)
+
+[source,mermaid,width=600]
+----
+sequenceDiagram
+    autonumber
+    actor User as Author / Writer
+    participant Editor as Monaco Editor
+    participant Worker as WebWorker Engine
+    participant Preview as Live Preview
+    participant Exporter as EPUB/HTML Exporter
+
+    User->>Editor: Type AsciiDoc Markup
+    Editor->>Worker: Off-thread Parsing (Asciidoctor)
+    Worker-->>Preview: Transformed HTML Fragment
+    Preview->>Preview: Render Mermaid SVG & Styling
+    User->>Exporter: Trigger Export to HTML / EPUB3
+    Exporter-->>User: Download Finished Publication File
+----
+
+=== 2. Technical Workflow Flowchart (Width: 75%)
+
+[source,mermaid,width=75%]
+----
+flowchart TD
+    A[Start AsciiDoc Project] --> B{Choose Output Format}
+    B -->|Interactive Preview| C[Live Preview Panel]
+    B -->|Digital E-Book| D[EPUB3 Exporter]
+    B -->|Web Document| E[HTML Exporter]
+    
+    C --> F[Real-time SVG & Theme Styling]
+    D --> G[Bundle Embedded Images & Chapters]
+    E --> H[Apply Print Media Stylesheet]
+    
+    G --> I[Complete eBook Publication]
+    H --> I
+----
+
+=== 3. State Transition Diagram (Width: 420px)
+
+[source,mermaid,width=420]
+----
+stateDiagram-v2
+    [*] --> Draft
+    Draft --> InReview: Submit Chapter
+    InReview --> Approved: Peer Review Pass
+    InReview --> Draft: Revisions Needed
+    Approved --> Published: Build HTML & EPUB
+    Published --> [*]
+----

@@ -1,0 +1,29 @@
+= Comprehensive AsciiDoc Technical Book Guide
+:author: AsciiDoc Studio Team
+:email: dev@example.com
+:revdate: 2026-08-01
+:doctype: book
+:toc: left
+:toclevels: 3
+:icons: font
+:source-highlighter: highlight.js
+:figure-caption: 그림
+:table-caption: 표
+:example-caption: 예시
+:front-cover-image: images/sample.jpg
+:back-cover-image: images/back-cover.png
+
+== Book Overview
+
+Welcome to the **Comprehensive AsciiDoc Test Suite & Technical Book Sample**.
+This master document demonstrates multi-chapter structure, Mermaid diagrams, code callouts, admonition blocks, tables, embedded images, and PDF publication references. It uses separate front and back cover artwork so every export can verify its cover-page order.
+
+include::01-introduction.adoc[]
+
+include::02-architecture-diagrams.adoc[]
+
+include::03-code-examples.adoc[]
+
+include::04-publication-verification.adoc[]
+
+include::05-typst-publication-features.adoc[]
